@@ -1,8 +1,7 @@
 import React from 'react'
 import { Container, Header, Body, Title, Tab, Tabs, Left, Right, Button, Icon } from 'native-base';
 import { Text, View } from 'react-native'
-import {PlayerOne} from './PlayerOne'
-import {PlayerTwo} from './PlayerTwo'
+import {PlayerOne, PlayerTwo} from './components'
 import { styles } from './styles/styles'
 
 export default class Main extends React.Component {

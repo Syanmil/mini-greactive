@@ -15,13 +15,17 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'nowrap'
   },
+  battleView: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '5%',
+    width: '100%',
+    height: '100%',
+  },
   playerOneView: {
     backgroundColor: '#3cd8f4',
     width: '100%',
     height: '100%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '5%',
   },
   playerTwoView: {
     backgroundColor: '#d53243',
