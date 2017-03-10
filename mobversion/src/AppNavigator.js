@@ -19,18 +19,18 @@ export class AppNavigator extends React.Component {
     }
   }
   goToMain(navigator){
-    navigator.pop()
+    navigator.push({
+      scene: 'main'
+    })
   }
   backToWelcome(navigator){
-    navigator.push({
-      scene: 'welcome'
-    })
+    navigator.pop()
   }
   render(){
     return (
       <View style={{height: '100%', width: '100%'}}>
         <Navigator
-          initialRoute= {{scene: 'welcome'}}
+          initialRoute= {{scene: 'main'}}
           renderScene= {this.sceneRender.bind(this)}
           />
       </View>

@@ -1,8 +1,11 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
+import { styles } from './styles/styles'
 
 export const PlayerTwo = () => {
   return (
-    <Text>PlayerTwo</Text>
+    <View style={styles.playerTwoView}>
+      <Text>PlayerTwo</Text>
+    </View>
   )
 }
