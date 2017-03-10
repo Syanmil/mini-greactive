@@ -5,12 +5,15 @@ import {PlayerOne} from './PlayerOne'
 import {PlayerTwo} from './PlayerTwo'
 
 export default class Main extends React.Component {
+  constructor(props){
+    super(props)
+  }
   render() {
     return (
       <Container>
         <Header hasTabs>
           <Left>
-            <Button transparent>
+            <Button transparent onPress={this.props.backToWelcome}>
               <Icon name='arrow-back' />
             </Button>
           </Left>
