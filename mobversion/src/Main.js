@@ -1,10 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Container, Header, Body, Title, Tab, Tabs, Left, Right, Button, Icon } from 'native-base';
 import { Text, View } from 'react-native'
-import {PlayerOne, PlayerTwo} from './components'
+import { PlayerOne, PlayerTwo } from './components'
 import { styles } from './styles/styles'
 
-export default class Main extends React.Component {
+class Main extends React.Component {
   constructor(props){
     super(props)
   }
@@ -31,10 +32,23 @@ export default class Main extends React.Component {
           </Tab>
         </Tabs>
         <View style={styles.battleGround}>
-          <View style={styles.fieldOne}></View>
-          <View style={styles.fieldTwo}></View>
+          <View style={styles.fieldOne}>
+            <Text> Health Points : {this.props.playerOne.hp}</Text>
+          </View>
+          <View style={styles.fieldTwo}>
+            <Text> Health Points : {this.props.playerTwo.hp}</Text>
+          </View>
         </View>
       </Container>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    playerOne: state.P1,
+    playerTwo: state.P2
+  }
+}
+
+export default connect(mapStateToProps)(Main)

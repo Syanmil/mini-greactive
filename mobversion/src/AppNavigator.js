@@ -2,6 +2,8 @@ import React from 'react'
 import { Navigator, View, Text } from 'react-native'
 import Main from './Main'
 import { Welcome } from './Welcome'
+import { Provider } from 'react-redux';
+import { store } from './store/storeConfig'
 
 export class AppNavigator extends React.Component {
   sceneRender(route, navigator){
@@ -29,10 +31,11 @@ export class AppNavigator extends React.Component {
   render(){
     return (
       <View style={{height: '100%', width: '100%'}}>
-        <Navigator
-          initialRoute= {{scene: 'main'}}
-          renderScene= {this.sceneRender.bind(this)}
-          />
+        <Provider store={ store }>
+          <Navigator
+            initialRoute= {{scene: 'main'}}
+            renderScene= {this.sceneRender.bind(this)}/>
+        </Provider>
       </View>
     )
   }
