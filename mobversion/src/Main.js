@@ -1,17 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Container, Header, Body, Title, Tab, Tabs, Left, Right, Button, Icon } from 'native-base';
 import { Text, View } from 'react-native'
 import { PlayerOne, PlayerTwo, ReadyView } from './components'
+import { battleCalculation } from './actions'
 import { styles } from './styles/styles'
 
 class Main extends React.Component {
-  constructor(props){
-    super(props)
+  battleOn(){
+    this.props.battleCalculation()
   }
   render() {
-  let playerOneReady = this.props.playerOne.ready ? <ReadyView /> : <PlayerOne />
-  let playerTwoReady = this.props.playerTwo.ready ? <ReadyView /> : <PlayerTwo />
+  const P1 = this.props.playerOne;
+  const P2 = this.props.playerTwo;
+  let playerOneReady = P1.ready ? <ReadyView /> : <PlayerOne />
+  let playerTwoReady = P2.ready ? <ReadyView /> : <PlayerTwo />
+  if (P1.ready && P2.ready){
+    this.battleOn()
+  }
     return (
       <Container>
         <Header hasTabs>
@@ -35,14 +42,14 @@ class Main extends React.Component {
         </Tabs>
         <View style={styles.battleGround}>
           <View style={styles.fieldOne}>
-            <Text> Health Points : {this.props.playerOne.hp}</Text>
-            <Text> Weapon : {this.props.playerOne.weapon}</Text>
-            <Text> Status : {this.props.playerOne.ready ? 'Ready' : 'Preparing...'}</Text>
+            <Text> Health Points : {P1.hp}</Text>
+            <Text> Weapon : {P1.weapon}</Text>
+            <Text> Status : {P1.ready ? 'Ready' : 'Preparing...'}</Text>
           </View>
           <View style={styles.fieldTwo}>
-            <Text> Health Points : {this.props.playerTwo.hp}</Text>
-            <Text> Weapon : {this.props.playerTwo.weapon}</Text>
-            <Text> Status : {this.props.playerTwo.ready ? 'Ready' : 'Preparing...'}</Text>
+            <Text> Health Points : {P2.hp}</Text>
+            <Text> Weapon : {P2.weapon}</Text>
+            <Text> Status : {P2.ready ? 'Ready' : 'Preparing...'}</Text>
           </View>
         </View>
       </Container>
@@ -57,4 +64,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Main)
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({battleCalculation}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
