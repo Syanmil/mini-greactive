@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { styles } from '../styles/styles'
-import { changeShield, changeAxe, changeSword, changeSpear } from '../actions'
+import { changeShield, changeAxe, changeSword, changeSpear, battleReady } from '../actions'
 
 export const BattleIcon = (props) => {
   return (
@@ -15,7 +15,7 @@ export const BattleIcon = (props) => {
         <TouchableOpacity style={styles.weaponsrowButtonLeft} onPress={()=> props.changeSword(props.playerID)}>
           <Image source={require('../assets/pointy-sword.png')} style={styles.weaponIconMiddle}/>
         </TouchableOpacity>
-        <TouchableOpacity style={{width: '30%'}}>
+        <TouchableOpacity style={{width: '30%'}} onPress={()=> props.battleReady(props.playerID)}>
           <View style={styles.battleButton}>
             <Text style={{color: 'white', fontWeight: 'bold'}}>Confirm</Text>
           </View>
@@ -32,7 +32,7 @@ export const BattleIcon = (props) => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({changeShield, changeAxe, changeSword, changeSpear}, dispatch)
+  return bindActionCreators({changeShield, changeAxe, changeSword, changeSpear, battleReady}, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(BattleIcon)

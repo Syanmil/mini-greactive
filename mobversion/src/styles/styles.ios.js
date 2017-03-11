@@ -22,6 +22,18 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  readyView: {
+    backgroundColor: '#38cf31',
+    width: '100%',
+    height: '100%',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  readyText: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    color: 'white'
+  },
   playerOneView: {
     backgroundColor: '#3cd8f4',
     width: '100%',
