@@ -34,9 +34,11 @@ class Main extends React.Component {
         <View style={styles.battleGround}>
           <View style={styles.fieldOne}>
             <Text> Health Points : {this.props.playerOne.hp}</Text>
+            <Text> Weapon : {this.props.playerOne.weapon}</Text>
           </View>
           <View style={styles.fieldTwo}>
             <Text> Health Points : {this.props.playerTwo.hp}</Text>
+            <Text> Weapon : {this.props.playerTwo.weapon}</Text>
           </View>
         </View>
       </Container>
@@ -46,8 +48,8 @@ class Main extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    playerOne: state.P1,
-    playerTwo: state.P2
+    playerOne: state.players[0],
+    playerTwo: state.players[1]
   }
 }
 

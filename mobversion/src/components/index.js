@@ -1,3 +1,4 @@
-export {PlayerOne} from './PlayerOne'
-export {PlayerTwo} from './PlayerTwo'
-export {BattleIcon} from './BattleIcon'
+export { PlayerOne } from './PlayerOne'
+export { PlayerTwo } from './PlayerTwo'
+import BattleIcon from './BattleIcon'
+export {BattleIcon}

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import { styles } from '../styles/styles'
-import {BattleIcon} from '.'
+import { BattleIcon } from './'
 
 export const PlayerOne = () => {
   return (
     <View style={styles.playerOneView}>
-      <BattleIcon />
+      <BattleIcon playerID={1}/>
     </View>
   )
 }

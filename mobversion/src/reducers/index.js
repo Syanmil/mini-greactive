@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
-import PlayerOneReducer from './PlayerOneReducer'
-import PlayerTwoReducer from './PlayerTwoReducer'
+import PlayersReducer from './PlayersReducer'
 
 const rootReducers = combineReducers({
-  P1: PlayerOneReducer,
-  P2: PlayerTwoReducer
+  players : PlayersReducer
 })
 
 export default rootReducers
