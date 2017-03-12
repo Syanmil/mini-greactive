@@ -6,7 +6,7 @@ let data =
   hp: 100,
   weapon: 'Shield',
   ready: false,
-  lastDamage: 0,
+  damage: 0,
   combo: [],
   sword: 10,
   shield: 10,
@@ -17,7 +17,7 @@ let data =
   hp: 100,
   weapon: 'Shield',
   ready: false,
-  lastDamage: 0,
+  damage: 0,
   combo: [],
   sword: 10,
   shield: 10,
@@ -30,24 +30,70 @@ export default (state = data, action) => {
     case READY:
       return state.map(data => data.playerID === action.playerID ? {...data, ready: true} : data)
     case SHIELD:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Shield'} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Shield', damage: function(){return this.shield}} : data)
     case SPEAR:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Spear'} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Spear', damage: function(){return this.spear}} : data)
     case SWORD:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Sword'} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Sword', damage: function(){return this.sword}} : data)
     case AXE:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Axe'} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Axe', damage: function(){return this.axe}} : data)
     case BATTLE:
-      calculate(state[0], state[1])
+      let mod = getWeaponModifier(state[0], state[1])
+      let damage = calculateDamage(state[0], state[1], mod)
+      console.log(state[0].damage());
       return state
     default:
       return state
   }
 }
 
-const calculate = (P1, P2) => {
+const getWeaponModifier = (P1, P2) => {
   if(P1.weapon === P2.weapon){
-    console.log('draw');
+    return [1, 1]
+  } else if (P1.weapon === 'Shield'){
+    return [0, 0.5]
+  } else if (P2.weapon === 'Shield') {
+    return [0.5, 0]
+  } else {
+    switch (P1.weapon) {
+      case 'Sword':
+        switch (P2.weapon) {
+          case 'Spear':
+            return [0.5, 3]
+            break;
+          case 'Axe':
+            return [3, 0.5]
+            break;
+          default:
+          return [1, 1]
+        }
+      case 'Spear':
+        switch (P2.weapon) {
+          case 'Sword':
+            return [3, 0.5]
+            break;
+          case 'Axe':
+            return [0.5, 3]
+            break;
+          default:
+          return [1, 1]
+        }
+      case 'Axe':
+        switch (P2.weapon) {
+          case 'Sword':
+            return [0.5, 3]
+            break;
+          case 'Spear':
+            return [3, 0.5]
+            break;
+          default:
+          return [1, 1]
+        }
+      default:
+        return [1,1]
+      }
+    }
   }
-  return [{...P1}, {...P2}]
+const calculateDamage = (P1, P2, mod) => {
+  return mod
 }
