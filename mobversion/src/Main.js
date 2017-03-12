@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { Container, Header, Body, Title, Tab, Tabs, Left, Right, Button, Icon } from 'native-base';
 import { Text, View } from 'react-native'
 import { PlayerOne, PlayerTwo, ReadyView } from './components'
-import { battleCalculation } from './actions'
+import { battleCalculation, preparation } from './actions'
 import { styles } from './styles/styles'
 
 class Main extends React.Component {
@@ -14,8 +14,8 @@ class Main extends React.Component {
   render() {
   const P1 = this.props.playerOne;
   const P2 = this.props.playerTwo;
-  let playerOneReady = P1.ready ? <ReadyView /> : <PlayerOne />
-  let playerTwoReady = P2.ready ? <ReadyView /> : <PlayerTwo />
+  let playerOneReady = P1.ready ? <ReadyView turnText={'Opponent Turn'}/> : <PlayerOne />
+  let playerTwoReady = P2.ready ? <ReadyView turnText={'Opponent Turn'}/> : <PlayerTwo />
   if (P1.ready && P2.ready){
     this.battleOn()
   }
@@ -43,12 +43,10 @@ class Main extends React.Component {
         <View style={styles.battleGround}>
           <View style={styles.fieldOne}>
             <Text> Health Points : {P1.hp}</Text>
-            <Text> Weapon : {P1.weapon}</Text>
             <Text> Status : {P1.ready ? 'Ready' : 'Preparing...'}</Text>
           </View>
           <View style={styles.fieldTwo}>
             <Text> Health Points : {P2.hp}</Text>
-            <Text> Weapon : {P2.weapon}</Text>
             <Text> Status : {P2.ready ? 'Ready' : 'Preparing...'}</Text>
           </View>
         </View>
@@ -65,7 +63,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({battleCalculation}, dispatch)
+  return bindActionCreators({battleCalculation, preparation}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

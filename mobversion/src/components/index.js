@@ -1,5 +1,5 @@
-export { PlayerOne } from './PlayerOne'
-export { PlayerTwo } from './PlayerTwo'
+import PlayerOne from './PlayerOne'
+import PlayerTwo from './PlayerTwo'
 export { ReadyView } from './ReadyView'
 import BattleIcon from './BattleIcon'
-export {BattleIcon}
+export {BattleIcon, PlayerOne, PlayerTwo}

@@ -1,4 +1,4 @@
-import {SHIELD, SPEAR, SWORD, AXE, READY, BATTLE} from '../constants'
+import {SHIELD, SPEAR, SWORD, AXE, READY, BATTLE, PREPARE} from '../constants'
 
 let data =
 [{
@@ -6,7 +6,7 @@ let data =
   hp: 100,
   weapon: 'Shield',
   ready: false,
-  damage: 0,
+  damageDealt: 0,
   combo: [],
   sword: 10,
   shield: 10,
@@ -17,7 +17,7 @@ let data =
   hp: 100,
   weapon: 'Shield',
   ready: false,
-  damage: 0,
+  damageDealt: 0,
   combo: [],
   sword: 10,
   shield: 10,
@@ -30,18 +30,20 @@ export default (state = data, action) => {
     case READY:
       return state.map(data => data.playerID === action.playerID ? {...data, ready: true} : data)
     case SHIELD:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Shield', damage: function(){return this.shield}} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Shield', damageDealt: function(){return this.shield}} : data)
     case SPEAR:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Spear', damage: function(){return this.spear}} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Spear', damageDealt: function(){return this.spear}} : data)
     case SWORD:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Sword', damage: function(){return this.sword}} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Sword', damageDealt: function(){return this.sword}} : data)
     case AXE:
-      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Axe', damage: function(){return this.axe}} : data)
+      return state.map(data => data.playerID === action.playerID ? {...data, weapon: 'Axe', damageDealt: function(){return this.axe}} : data)
     case BATTLE:
       let mod = getWeaponModifier(state[0], state[1])
       let damage = calculateDamage(state[0], state[1], mod)
-      console.log(state[0].damage());
-      return state
+      console.log(damage);
+      return state.map((data, index) => index === 0 ? {...data, ready: false, hp: damage[0]} : {...data, ready: false, hp: damage[1]})
+    case PREPARE:
+      return state.map(data => ({...data, ready: false}))
     default:
       return state
   }
@@ -95,5 +97,7 @@ const getWeaponModifier = (P1, P2) => {
     }
   }
 const calculateDamage = (P1, P2, mod) => {
-  return mod
+  let P1copy = Object.assign({}, P1)
+  let P2copy = Object.assign({}, P2)
+  return [P1copy.hp - (P2copy.damageDealt()*mod[1]), P2copy.hp - (P1copy.damageDealt()*mod[0]) ]
 }
