@@ -1,4 +1,4 @@
-import {SHIELD, SPEAR, SWORD, AXE, READY, BATTLE, PREPARE} from '../constants'
+import {SHIELD, SPEAR, SWORD, AXE, READY, BATTLE, PREPARE, CUSTOM} from '../constants'
 
 let data =
 [{
@@ -12,6 +12,7 @@ let data =
   shield: 10,
   spear: 10,
   axe: 10,
+  customize: false,
 }, {
   playerID: 2,
   hp: 100,
@@ -23,6 +24,7 @@ let data =
   shield: 10,
   spear: 10,
   axe: 10,
+  customize: false,
 }]
 
 export default (state = data, action) => {
@@ -46,6 +48,15 @@ export default (state = data, action) => {
       return state.map((data, index) => index === 0 ? {...data, ready: false, hp: damage[0], combo: P1Combo} : {...data, ready: false, hp: damage[1], combo: P2Combo})
     case PREPARE:
       return state.map(data => ({...data, ready: false}))
+    case CUSTOM:
+      return state.map(data => data.playerID === action.playerID ? (
+        {...data,
+        hp: action.status.hp,
+        spear: action.status.spear,
+        axe: action.status.axe,
+        sword: action.status.sword,
+        customize: true}
+      ) : data)
     default:
       return state
   }
@@ -101,5 +112,5 @@ const getWeaponModifier = (P1, P2) => {
 const calculateDamage = (P1, P2, mod) => {
   let P1copy = Object.assign({}, P1)
   let P2copy = Object.assign({}, P2)
-  return [P1copy.hp - (P2copy.damageDealt()*mod[1]), P2copy.hp - (P1copy.damageDealt()*mod[0]) ]
+  return [P1copy.hp - (Math.floor(P2copy.damageDealt()*mod[1])), P2copy.hp - (Math.floor(P1copy.damageDealt()*mod[0])) ]
 }
