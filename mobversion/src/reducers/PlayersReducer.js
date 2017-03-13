@@ -6,7 +6,7 @@ let data =
   hp: 100,
   weapon: 'Shield',
   ready: false,
-  damageDealt: 0,
+  damageDealt: function(){return this.shield},
   combo: [],
   sword: 10,
   shield: 10,
@@ -17,7 +17,7 @@ let data =
   hp: 100,
   weapon: 'Shield',
   ready: false,
-  damageDealt: 0,
+  damageDealt: function(){return this.shield},
   combo: [],
   sword: 10,
   shield: 10,
@@ -40,8 +40,10 @@ export default (state = data, action) => {
     case BATTLE:
       let mod = getWeaponModifier(state[0], state[1])
       let damage = calculateDamage(state[0], state[1], mod)
-      console.log(damage);
-      return state.map((data, index) => index === 0 ? {...data, ready: false, hp: damage[0]} : {...data, ready: false, hp: damage[1]})
+      let P1Combo = state[0].combo.concat(state[0].weapon)
+      let P2Combo = state[1].combo.concat(state[1].weapon)
+      // let NewCombo = state.
+      return state.map((data, index) => index === 0 ? {...data, ready: false, hp: damage[0], combo: P1Combo} : {...data, ready: false, hp: damage[1], combo: P2Combo})
     case PREPARE:
       return state.map(data => ({...data, ready: false}))
     default:

@@ -90,5 +90,10 @@ export const styles = StyleSheet.create({
     padding: 0,
     borderRadius: 15,
     alignItems: 'center',
-    justifyContent: 'center'}
+    justifyContent: 'center'
+  },
+  icon: {
+    width: 30,
+    height: 30,
+  }
 })
