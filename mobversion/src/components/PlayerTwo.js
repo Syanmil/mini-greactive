@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { styles } from '../styles/styles'
-import { BattleIcon, ReadyView } from './'
+import { BattleIcon, ReadyView, Customizer } from './'
 
 const PlayerTwo = (props) => {
   let element
