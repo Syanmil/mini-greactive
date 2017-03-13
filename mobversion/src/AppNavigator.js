@@ -33,7 +33,7 @@ export class AppNavigator extends React.Component {
       <View style={{height: '100%', width: '100%'}}>
         <Provider store={ store }>
           <Navigator
-            initialRoute= {{scene: 'main'}}
+            initialRoute= {{scene: 'welcome'}}
             renderScene= {this.sceneRender.bind(this)}/>
         </Provider>
       </View>

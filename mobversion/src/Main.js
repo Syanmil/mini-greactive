@@ -21,6 +21,14 @@ class Main extends React.Component {
   const P2 = this.props.playerTwo;
   let playerOneReady = P1.ready ? <ReadyView turnText={'Opponent Turn'}/> : <PlayerOne />
   let playerTwoReady = P2.ready ? <ReadyView turnText={'Opponent Turn'}/> : <PlayerTwo />
+  let reset
+  if (P1.hp < 1 || P2.hp < 1){
+    reset = (
+      <Button transparent onPress={this.props.backToWelcome}>
+        <Text>RESET</Text>
+      </Button>
+    )
+  }
     return (
       <Container>
         <Header hasTabs>
